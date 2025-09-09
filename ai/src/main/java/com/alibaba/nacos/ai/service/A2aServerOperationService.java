@@ -41,6 +41,7 @@ import com.alibaba.nacos.config.server.service.ConfigOperationService;
 import com.alibaba.nacos.config.server.service.query.ConfigQueryChainService;
 import com.alibaba.nacos.config.server.service.query.model.ConfigQueryChainRequest;
 import com.alibaba.nacos.config.server.service.query.model.ConfigQueryChainResponse;
+import com.alibaba.nacos.config.server.utils.ParamUtils;
 import com.alibaba.nacos.core.model.form.PageForm;
 import org.springframework.beans.BeanUtils;
 
@@ -98,10 +99,10 @@ public class A2aServerOperationService {
      * @param form agent form
      */
     public void deleteAgent(AgentForm form) throws NacosException {
-        String dataId = form.getName();
+        String encodedName = ParamUtils.encodeName(form.getName());
         String namespaceId = form.getNamespaceId();
         
-        ConfigQueryChainRequest request = ConfigQueryChainRequest.buildConfigQueryChainRequest(dataId, AGENT_GROUP,
+        ConfigQueryChainRequest request = ConfigQueryChainRequest.buildConfigQueryChainRequest(encodedName, AGENT_GROUP,
                 namespaceId);
         ConfigQueryChainResponse response = configQueryChainService.handle(request);
         
@@ -116,7 +117,7 @@ public class A2aServerOperationService {
         
         // 1. If version is specified, only delete the corresponding version of the agent
         if (form.getVersion() != null) {
-            String versionDataId = form.getName() + form.getVersion();
+            String versionDataId = encodedName + "-" + form.getVersion();
             configOperationService.deleteConfig(versionDataId, AGENT_VERSION_GROUP, namespaceId, null, null, "nacos",
                     null);
             
@@ -125,7 +126,7 @@ public class A2aServerOperationService {
             boolean isLatestVersion = form.getVersion().equals(agentCardVersionInfo.getLatestPublishedVersion());
             
             if (versionDetails.size() == 1 && versionDetails.get(0).getVersion().equals(form.getVersion())) {
-                configOperationService.deleteConfig(dataId, AGENT_GROUP, namespaceId, null, null, "nacos", null);
+                configOperationService.deleteConfig(encodedName, AGENT_GROUP, namespaceId, null, null, "nacos", null);
             } else {
                 agentCardVersionInfo.getVersionDetails()
                         .removeIf(versionDetail -> versionDetail.getVersion().equals(form.getVersion()));
@@ -143,12 +144,12 @@ public class A2aServerOperationService {
         } else {
             // 2. If no version specified, delete all versions and agent information
             for (String version : allVersions) {
-                String versionDataId = form.getName() + "-" + version;
+                String versionDataId = encodedName + "-" + version;
                 configOperationService.deleteConfig(versionDataId, AGENT_VERSION_GROUP, namespaceId, null, null,
                         "nacos", null);
             }
             
-            configOperationService.deleteConfig(dataId, AGENT_GROUP, namespaceId, null, null, "nacos", null);
+            configOperationService.deleteConfig(encodedName, AGENT_GROUP, namespaceId, null, null, "nacos", null);
         }
     }
     
@@ -212,18 +213,18 @@ public class A2aServerOperationService {
     public Page<AgentCardVersionInfo> listAgents(AgentListForm agentListForm, PageForm pageForm) {
         String search;
         String namespaceId = agentListForm.getNamespaceId();
-        String name = agentListForm.getName();
+        String encodedName = ParamUtils.encodeName(agentListForm.getName());
         
         int pageNo = pageForm.getPageNo();
         int pageSize = pageForm.getPageSize();
         
         String dataId;
-        if (StringUtils.isEmpty(name) || Constants.A2A.SEARCH_BLUR.equals(name)) {
+        if (StringUtils.isEmpty(encodedName) || Constants.A2A.SEARCH_BLUR.equals(encodedName)) {
             search = Constants.A2A.SEARCH_BLUR;
-            dataId = Constants.ALL_PATTERN + name + Constants.ALL_PATTERN;
+            dataId = Constants.ALL_PATTERN + encodedName + Constants.ALL_PATTERN;
         } else {
             search = Constants.A2A.SEARCH_ACCURATE;
-            dataId = name;
+            dataId = encodedName;
         }
         
         Page<ConfigInfo> configInfoPage = configDetailService.findConfigInfoPage(search, pageNo, pageSize, dataId,
@@ -278,7 +279,7 @@ public class A2aServerOperationService {
     
     private AgentCardDetailInfo queryTargetVersion(AgentCardVersionInfo agentCardVersionInfo, String version,
             String namespaceId) throws NacosApiException {
-        String versionDataId = agentCardVersionInfo.getName() + "-" + version;
+        String versionDataId = ParamUtils.encodeName(agentCardVersionInfo.getName()) + "-" + version;
         ConfigQueryChainRequest request = ConfigQueryChainRequest.buildConfigQueryChainRequest(versionDataId,
                 AGENT_VERSION_GROUP, namespaceId);
         ConfigQueryChainResponse response = configQueryChainService.handle(request);
@@ -291,7 +292,8 @@ public class A2aServerOperationService {
     
     private ConfigForm transferVersionInfoToConfigForm(AgentCardVersionInfo agentCardVersionInfo, String namespaceId) {
         ConfigForm configForm = new ConfigForm();
-        configForm.setDataId(agentCardVersionInfo.getName());
+        String actualDataId = ParamUtils.encodeName(agentCardVersionInfo.getName());
+        configForm.setDataId(actualDataId);
         configForm.setGroup(AGENT_GROUP);
         configForm.setNamespaceId(namespaceId);
         configForm.setContent(JacksonUtils.toJson(agentCardVersionInfo));
@@ -305,7 +307,8 @@ public class A2aServerOperationService {
     
     private ConfigForm transferAgentInfoToConfigForm(AgentCardDetailInfo storageInfo, String namespaceId) {
         ConfigForm configForm = new ConfigForm();
-        configForm.setDataId(storageInfo.getName() + "-" + storageInfo.getVersion());
+        String actualDataId = ParamUtils.encodeName(storageInfo.getName()) + "-" + storageInfo.getVersion();
+        configForm.setDataId(actualDataId);
         configForm.setGroup(AGENT_VERSION_GROUP);
         configForm.setNamespaceId(namespaceId);
         configForm.setContent(JacksonUtils.toJson(storageInfo));
@@ -323,8 +326,9 @@ public class A2aServerOperationService {
     
     private AgentCardVersionInfo queryAgentCardVersionInfo(String namespaceId, String name) throws NacosApiException {
         // Check if the agent exists
-        ConfigQueryChainRequest request = ConfigQueryChainRequest.buildConfigQueryChainRequest(name, AGENT_GROUP,
-                namespaceId);
+        String actualDataId = ParamUtils.encodeName(name);
+        ConfigQueryChainRequest request = ConfigQueryChainRequest.buildConfigQueryChainRequest(actualDataId,
+                AGENT_GROUP, namespaceId);
         ConfigQueryChainResponse response = configQueryChainService.handle(request);
         if (response.getStatus() == ConfigQueryChainResponse.ConfigQueryStatus.CONFIG_NOT_FOUND) {
             throw new NacosApiException(NacosException.NOT_FOUND, ErrorCode.AGENT_NOT_FOUND,
