@@ -32,7 +32,7 @@ public class SnowFlakeInstanceIdGenerator implements InstanceIdGenerator {
     
     private static final SnowFlowerIdGenerator SNOW_FLOWER_ID_GENERATOR = new SnowFlowerIdGenerator();
 
-    private static volatile boolean initialize = false;
+    private static boolean initialize = false;
 
     private static final Object LOCK = new Object();
 
