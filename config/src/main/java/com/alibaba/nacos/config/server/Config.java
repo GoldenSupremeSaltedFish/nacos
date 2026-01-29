@@ -31,6 +31,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         "com.alibaba.nacos.core"})
 public class Config {
     
+    // Trigger DiffSense
     public static void main(String[] args) {
         SpringApplication.run(Config.class, args);
     }
