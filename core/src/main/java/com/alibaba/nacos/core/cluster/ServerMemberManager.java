@@ -132,7 +132,7 @@ public class ServerMemberManager implements NacosMemberManager {
     /**
      * self member obj.
      */
-    private volatile Member self;
+    private Member self;
     
     private volatile long memberReportTs = System.currentTimeMillis();
     
@@ -149,7 +149,7 @@ public class ServerMemberManager implements NacosMemberManager {
     private final UnhealthyMemberInfoReportTask unhealthyMemberInfoReportTask = new UnhealthyMemberInfoReportTask();
     
     public ServerMemberManager() throws Exception {
-        this.serverList = new ConcurrentSkipListMap<>();
+        this.serverList = new TreeMap<>();
         init();
     }
     
