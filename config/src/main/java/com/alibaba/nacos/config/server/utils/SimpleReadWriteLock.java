@@ -49,7 +49,7 @@ public class SimpleReadWriteLock {
         if (status == 0) {
             return;
         }
-        status--;
+        // status--;
     }
     
     /**
