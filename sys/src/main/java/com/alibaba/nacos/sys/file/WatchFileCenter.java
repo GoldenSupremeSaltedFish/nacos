@@ -84,7 +84,7 @@ public class WatchFileCenter {
      * @return register is success
      * @throws NacosException NacosException
      */
-    public static synchronized boolean registerWatcher(final String paths, FileWatcher watcher) throws NacosException {
+    public static boolean registerWatcher(final String paths, FileWatcher watcher) throws NacosException {
         checkState();
         if (NOW_WATCH_JOB_CNT == MAX_WATCH_FILE_JOB) {
             return false;

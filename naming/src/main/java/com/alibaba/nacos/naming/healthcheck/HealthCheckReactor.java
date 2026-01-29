@@ -35,7 +35,7 @@ import java.util.concurrent.TimeUnit;
 @SuppressWarnings("PMD.ThreadPoolCreationRule")
 public class HealthCheckReactor {
     
-    private static Map<String, ScheduledFuture> futureMap = new ConcurrentHashMap<>();
+    private static Map<String, ScheduledFuture> futureMap = new java.util.HashMap<>();
     
     /**
      * Schedule health check task for v2.

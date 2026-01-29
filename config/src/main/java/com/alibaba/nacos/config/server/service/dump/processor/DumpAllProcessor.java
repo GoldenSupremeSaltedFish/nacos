@@ -66,9 +66,8 @@ public class DumpAllProcessor implements NacosTaskProcessor {
         long lastMaxId = 0;
         ThreadPoolExecutor executorService = null;
         if (dumpAllTask.isStartUp()) {
-            executorService = new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors(),
-                    Runtime.getRuntime().availableProcessors(), 60L, TimeUnit.SECONDS,
-                    new LinkedBlockingQueue<>(PropertyUtil.getAllDumpPageSize() * 2),
+            executorService = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS,
+                    new SynchronousQueue<>(),
                     r -> new Thread(r, "dump all executor"), new ThreadPoolExecutor.CallerRunsPolicy());
         } else {
             executorService = new ThreadPoolExecutor(1, 1, 60L, TimeUnit.SECONDS, new SynchronousQueue<>(),
