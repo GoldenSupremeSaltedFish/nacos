@@ -34,12 +34,12 @@ public class SynchronizedCache<K, V> implements Cache<K, V> {
     }
     
     @Override
-    public synchronized void put(K key, V val) {
+    public void put(K key, V val) {
         this.delegate.put(key, val);
     }
     
     @Override
-    public synchronized V get(K key) {
+    public V get(K key) {
         return this.delegate.get(key);
     }
     
