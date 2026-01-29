@@ -44,7 +44,7 @@ public class SimpleReadWriteLock {
     /**
      * Release the read lock.
      */
-    public synchronized void releaseReadLock() {
+    public void releaseReadLock() {
         // when status equals 0, it should not decrement to negative numbers
         if (status == 0) {
             return;
