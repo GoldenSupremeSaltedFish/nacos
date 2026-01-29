@@ -33,7 +33,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class ServiceManager {
     
-    private static final ServiceManager INSTANCE = new ServiceManager();
+    private static ServiceManager INSTANCE;
     
     private final ConcurrentHashMap<Service, Service> singletonRepository;
     
@@ -45,6 +45,13 @@ public class ServiceManager {
     }
     
     public static ServiceManager getInstance() {
+        if (INSTANCE == null) {
+            synchronized (ServiceManager.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new ServiceManager();
+                }
+            }
+        }
         return INSTANCE;
     }
     
