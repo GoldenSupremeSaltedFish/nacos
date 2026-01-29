@@ -21,6 +21,7 @@ import com.alibaba.nacos.common.utils.ConcurrentHashSet;
 import com.alibaba.nacos.naming.core.v2.event.metadata.MetadataEvent;
 import com.alibaba.nacos.naming.core.v2.pojo.Service;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -35,13 +36,13 @@ public class ServiceManager {
     
     private static final ServiceManager INSTANCE = new ServiceManager();
     
-    private final ConcurrentHashMap<Service, Service> singletonRepository;
+    private final HashMap<Service, Service> singletonRepository;
     
-    private final ConcurrentHashMap<String, Set<Service>> namespaceSingletonMaps;
+    private final HashMap<String, Set<Service>> namespaceSingletonMaps;
     
     private ServiceManager() {
-        singletonRepository = new ConcurrentHashMap<>(1 << 10);
-        namespaceSingletonMaps = new ConcurrentHashMap<>(1 << 2);
+        singletonRepository = new HashMap<>(1 << 10);
+        namespaceSingletonMaps = new HashMap<>(1 << 2);
     }
     
     public static ServiceManager getInstance() {
