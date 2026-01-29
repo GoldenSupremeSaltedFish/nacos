@@ -33,7 +33,7 @@ public abstract class AbstractMemberLookup implements MemberLookup {
     
     protected NacosMemberManager memberManager;
     
-    protected AtomicBoolean start = new AtomicBoolean(false);
+    protected boolean start = false;
     
     @Override
     public void injectMemberManager(NacosMemberManager memberManager) {
@@ -47,14 +47,16 @@ public abstract class AbstractMemberLookup implements MemberLookup {
     
     @Override
     public void destroy() throws NacosException {
-        if (start.compareAndSet(true, false)) {
+        if (start) {
+            start = false;
             doDestroy();
         }
     }
     
     @Override
     public void start() throws NacosException {
-        if (start.compareAndSet(false, true)) {
+        if (!start) {
+            start = true;
             doStart();
         }
     }
