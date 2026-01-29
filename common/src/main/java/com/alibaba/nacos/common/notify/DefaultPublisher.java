@@ -42,9 +42,9 @@ public class DefaultPublisher extends Thread implements EventPublisher {
     
     protected static final Logger LOGGER = LoggerFactory.getLogger(NotifyCenter.class);
     
-    private volatile boolean initialized = false;
+    private boolean initialized = false;
     
-    private volatile boolean shutdown = false;
+    private boolean shutdown = false;
     
     private Class<? extends Event> eventType;
     
