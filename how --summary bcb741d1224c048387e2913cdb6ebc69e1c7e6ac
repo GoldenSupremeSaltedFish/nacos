@@ -1,0 +1,41 @@
+[33mcommit 0e30f412a22b49c4a86dd07b393b357bd5cc538c[m
+Merge: e275d6a40 5bf23dae5
+Author: 杨翊 SionYang <xiweng.yy@alibaba-inc.com>
+Date:   Fri Dec 19 16:07:33 2025 +0800
+
+    Merge pull request #14041 from WangzJi/feature/unified-datasource-dialect
+    
+    feat: Merge nacos-plugin PostgreSQL & Base Implementation
+
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/constants/DatabaseTypeConstant.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/constants/PrimaryKeyConstant.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/dialect/AbstractDatabaseDialect.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/dialect/DatabaseDialect.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/dialect/DefaultDatabaseDialect.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/dialect/DerbyDatabaseDialect.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/dialect/MysqlDatabaseDialect.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/dialect/PostgresqlDatabaseDialect.java
+ create mode 100755 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/enums/TrustedPostgresqFunctionEnum.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/enums/derby/TrustedDerbyFunctionEnum.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/enums/postgresql/TrustedPostgresqlFunctionEnum.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/base/BaseConfigInfoAggrMapper.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/base/BaseConfigInfoBetaMapper.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/base/BaseConfigInfoMapper.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/base/BaseConfigInfoTagMapper.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/base/BaseConfigTagsRelationMapper.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/base/BaseGroupCapacityMapper.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/base/BaseTenantCapacityMapper.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/base/BaseTenantInfoMapper.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/mysql/ConfigInfoAggrMapperByMySql.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/postgresql/ConfigInfoAggrMapperByPostgresql.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/postgresql/ConfigInfoBetaMapperByPostgresql.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/postgresql/ConfigInfoMapperByPostgresql.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/postgresql/ConfigInfoTagMapperByPostgresql.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/postgresql/ConfigTagsRelationMapperByPostgresql.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/postgresql/GroupCapacityMapperByPostgresql.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/postgresql/HistoryConfigInfoMapperByPostgresql.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/postgresql/TenantCapacityMapperByPostgresql.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/postgresql/TenantInfoMapperByPostgresql.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/manager/DatabaseDialectManager.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/mapper/ConfigInfoAggrMapper.java
+ create mode 100644 plugin/datasource/src/main/resources/META-INF/services/com.alibaba.nacos.plugin.datasource.dialect.DatabaseDialect

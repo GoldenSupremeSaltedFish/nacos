@@ -1,0 +1,23 @@
+[33mcommit 24d121ac62de3a2fbcb02cd22d549d5086506d3e[m
+Merge: 2dfe6e13f 3501f3e35
+Author: KomachiSion <xiweng.yy@alibaba-inc.com>
+Date:   Mon Aug 25 17:41:16 2025 +0800
+
+    Merge branch 'refs/heads/upstream-develop' into summer-ospp#13322-sync-develop
+    
+    # Conflicts:
+    #       console/src/main/resources/static/index.html
+    #       console/src/main/resources/static/js/main.js
+
+ create mode 100644 ai/src/main/java/com/alibaba/nacos/ai/service/McpServerSyncEffectService.java
+ create mode 100644 ai/src/main/java/com/alibaba/nacos/ai/service/SimpleMcpServerSyncEffectService.java
+ create mode 100644 ai/src/test/java/com/alibaba/nacos/ai/service/McpServerSyncEffectServiceTest.java
+ create mode 100644 ai/src/test/java/com/alibaba/nacos/ai/service/SimpleMcpServerSyncEffectServiceTest.java
+ create mode 100644 api/src/main/java/com/alibaba/nacos/api/ai/model/mcp/SecurityScheme.java
+ create mode 100644 api/src/main/java/com/alibaba/nacos/api/ai/model/mcp/registry/Argument.java
+ create mode 100644 api/src/main/java/com/alibaba/nacos/api/ai/model/mcp/registry/Input.java
+ create mode 100644 api/src/main/java/com/alibaba/nacos/api/ai/model/mcp/registry/InputWithVariables.java
+ create mode 100644 api/src/main/java/com/alibaba/nacos/api/ai/model/mcp/registry/KeyValueInput.java
+ create mode 100644 api/src/main/java/com/alibaba/nacos/api/ai/model/mcp/registry/NamedArgument.java
+ create mode 100644 api/src/main/java/com/alibaba/nacos/api/ai/model/mcp/registry/Package.java
+ create mode 100644 api/src/main/java/com/alibaba/nacos/api/ai/model/mcp/registry/PositionalArgument.java

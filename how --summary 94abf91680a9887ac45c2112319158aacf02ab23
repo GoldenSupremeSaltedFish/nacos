@@ -1,0 +1,15 @@
+[33mcommit 618469bf065f22a8cf0ea66597a70a0b4143dce9[m
+Merge: bcb741d12 2245bcf2a
+Author: WangzJi <iwongjian666@gmail.com>
+Date:   Wed Dec 17 17:15:51 2025 +0300
+
+    feat(datasource): merge plugin base implementation with history
+
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/base/BaseConfigInfoAggrMapper.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/base/BaseConfigInfoBetaMapper.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/base/BaseConfigInfoMapper.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/base/BaseConfigInfoTagMapper.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/base/BaseConfigTagsRelationMapper.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/base/BaseGroupCapacityMapper.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/base/BaseTenantCapacityMapper.java
+ create mode 100644 plugin/datasource/src/main/java/com/alibaba/nacos/plugin/datasource/impl/base/BaseTenantInfoMapper.java
