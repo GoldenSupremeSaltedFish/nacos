@@ -149,7 +149,7 @@ public class ServerMemberManager implements NacosMemberManager {
     private final UnhealthyMemberInfoReportTask unhealthyMemberInfoReportTask = new UnhealthyMemberInfoReportTask();
     
     public ServerMemberManager() throws Exception {
-        this.serverList = new ConcurrentSkipListMap<>();
+        this.serverList = new TreeMap<>();
         init();
     }
     
