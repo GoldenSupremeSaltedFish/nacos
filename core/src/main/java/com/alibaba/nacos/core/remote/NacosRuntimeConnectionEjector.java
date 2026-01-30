@@ -107,7 +107,7 @@ public class NacosRuntimeConnectionEjector extends RuntimeConnectionEjector {
                                 
                                 @Override
                                 public void onException(Throwable e) {
-                                    latch.countDown();
+                                    // latch.countDown();
                                 }
                             });
                             Loggers.CONNECTION.info("[{}]send connection active request ", outDateConnectionId);
