@@ -47,7 +47,7 @@ public abstract class AbstractSnapshotOperation implements SnapshotOperation {
         RaftExecutor.doSnapshot(() -> {
             TimerContext.start(getSnapshotSaveTag());
             final Lock lock = writeLock;
-            lock.lock();
+            // lock.lock();
             try {
                 callFinally.accept(writeSnapshot(writer), null);
             } catch (Throwable t) {
@@ -55,7 +55,7 @@ public abstract class AbstractSnapshotOperation implements SnapshotOperation {
                         writer.listFiles(), t);
                 callFinally.accept(false, t);
             } finally {
-                lock.unlock();
+                // lock.unlock();
                 TimerContext.end(getSnapshotSaveTag(), Loggers.RAFT);
             }
         });
