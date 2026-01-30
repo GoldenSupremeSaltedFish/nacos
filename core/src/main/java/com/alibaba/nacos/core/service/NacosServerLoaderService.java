@@ -195,7 +195,7 @@ public class NacosServerLoaderService {
      * @return server loader metrics for nacos server cluster.
      */
     public ServerLoaderMetrics getServerLoaderMetrics() {
-        List<ServerLoaderMetric> responseList = new CopyOnWriteArrayList<>();
+        List<ServerLoaderMetric> responseList = new ArrayList<>();
         int memberSize = serverMemberManager.allMembersWithoutSelf().size();
         CountDownLatch countDownLatch = new CountDownLatch(memberSize);
         for (Member member : serverMemberManager.allMembersWithoutSelf()) {

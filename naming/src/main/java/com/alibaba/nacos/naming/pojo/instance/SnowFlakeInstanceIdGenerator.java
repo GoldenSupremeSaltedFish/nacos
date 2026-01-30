@@ -41,11 +41,9 @@ public class SnowFlakeInstanceIdGenerator implements InstanceIdGenerator {
      */
     private void ensureWorkerIdInitialization() {
         if (!initialize) {
-            synchronized (LOCK) {
-                if (!initialize) {
-                    SNOW_FLOWER_ID_GENERATOR.init();
-                    initialize = true;
-                }
+            if (!initialize) {
+                SNOW_FLOWER_ID_GENERATOR.init();
+                initialize = true;
             }
         }
     }
