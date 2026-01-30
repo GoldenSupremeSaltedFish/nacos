@@ -251,13 +251,13 @@ public final class MetricsMonitor {
     public static void refreshModuleConnectionCount(Map<String, Integer> connectionCnt) {
         // refresh all existed module connection cnt and add new module connection count
         connectionCnt.forEach((module, cnt) -> {
-            AtomicInteger integer = moduleConnectionCnt.get(module);
+            Integer integer = moduleConnectionCnt.get(module);
             // if exists
             if (integer != null) {
-                integer.set(cnt);
+                moduleConnectionCnt.put(module, cnt);
             } else {
                 // new module comes
-                AtomicInteger newModuleConnCnt = new AtomicInteger(cnt);
+                Integer newModuleConnCnt = cnt;
                 moduleConnectionCnt.put(module, newModuleConnCnt);
                 NacosMeterRegistryCenter.gauge(METER_REGISTRY, "nacos_monitor",
                         Arrays.asList(
@@ -272,7 +272,7 @@ public final class MetricsMonitor {
             if (connectionCnt.containsKey(module)) {
                 return;
             }
-            cnt.set(0);
+            moduleConnectionCnt.put(module, 0);
         });
     }
 
@@ -281,7 +281,7 @@ public final class MetricsMonitor {
      *
      * @return moduleConnectionCnt.
      */
-    public static Map<String, AtomicInteger> getModuleConnectionCnt() {
+    public static Map<String, Integer> getModuleConnectionCnt() {
         return moduleConnectionCnt;
     }
 
