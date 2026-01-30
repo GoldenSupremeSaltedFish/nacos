@@ -63,7 +63,10 @@ public class ServerStateController {
     /**
      * Get server state of current server.
      *
-     * @return state json.
+     * <p>This method returns the current state of the Nacos server, including standalone mode, function mode, etc.
+     * It is used by the console to display server status information.
+     *
+     * @return state json map containing various status indicators.
      */
     @GetMapping("/state")
     @Compatibility(apiType = ApiType.CONSOLE_API, alternatives = "GET ${contextPath:nacos}/v3/console/server/state")
