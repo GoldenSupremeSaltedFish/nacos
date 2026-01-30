@@ -130,7 +130,7 @@ public class CacheData {
     
     public final String tenant;
     
-    private final CopyOnWriteArrayList<ManagerListenerWrap> listeners;
+    private final ArrayList<ManagerListenerWrap> listeners;
     
     private volatile String md5;
     
