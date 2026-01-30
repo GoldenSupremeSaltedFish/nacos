@@ -37,8 +37,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Service storage.
@@ -56,9 +56,9 @@ public class ServiceStorage {
     
     private final NamingMetadataManager metadataManager;
     
-    private final ConcurrentMap<Service, ServiceInfo> serviceDataIndexes;
+    private final Map<Service, ServiceInfo> serviceDataIndexes;
     
-    private final ConcurrentMap<Service, Set<String>> serviceClusterIndex;
+    private final Map<Service, Set<String>> serviceClusterIndex;
     
     public ServiceStorage(ClientServiceIndexesManager serviceIndexesManager, ClientManagerDelegate clientManager,
             SwitchDomain switchDomain, NamingMetadataManager metadataManager) {
@@ -66,8 +66,8 @@ public class ServiceStorage {
         this.clientManager = clientManager;
         this.switchDomain = switchDomain;
         this.metadataManager = metadataManager;
-        this.serviceDataIndexes = new ConcurrentHashMap<>();
-        this.serviceClusterIndex = new ConcurrentHashMap<>();
+        this.serviceDataIndexes = new HashMap<>();
+        this.serviceClusterIndex = new HashMap<>();
     }
     
     public Set<String> getClusters(Service service) {
